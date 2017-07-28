@@ -1,23 +1,36 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div>
+    <v-header :seller='seller'></v-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import header from '@/components/header/header'
+import axios from 'axios'
+const ERR_OK = 0
+
 export default {
-  name: 'app'
+  data(){
+    return {
+      seller:{}
+    }
+  },
+  created(){
+    axios.get('static/data.json').then((res) => {
+      this.seller = res.data.seller;
+      // console.log(this.seller)
+    })
+  },
+  components:{
+    'v-header':header // 注入模块
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="stylus" rel='stylesheet/stylus'>
+ @import 'common/stylus/index'
+
+
 </style>
+

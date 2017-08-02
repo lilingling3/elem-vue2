@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  const LENGTH = 5 
+  const LENGTH = 5
   const CLS_ON = 'on' // 全星
   const CLS_HALF = 'half' // 半星
   const CLS_OFF = 'off'//空白
@@ -21,9 +21,9 @@ export default {
     },
     itemClasses(){
       // var test = 3.8;
-      // console.log(this.score) // 4.2 
+      // console.log(this.score) // 4.2
       let result = [];
-      let score = Math.floor(this.score*2)/2;// 得到 整数  或者 .5 的数字 
+      let score = Math.floor(this.score*2)/2;// 得到 整数  或者 .5 的数字
       // 如果是整数则表示是 整数或者小数部分小于5
       // 否则表示余数大于5
       // console.log(score)
@@ -64,7 +64,7 @@ export default {
       &.half
         bg-image('star48_half')
       &.off
-        bg-image('star48_off')  
+        bg-image('star48_off')
   &.star-36
     .star-item
       width 15px
@@ -78,7 +78,7 @@ export default {
       &.half
         bg-image('star36_half')
       &.off
-        bg-image('star36_off')  
+        bg-image('star36_off')
   &.star-24
     .star-item
       width 10px
@@ -92,5 +92,5 @@ export default {
       &.half
         bg-image('star24_half')
       &.off
-        bg-image('star24_off')  
+        bg-image('star24_off')
 </style>

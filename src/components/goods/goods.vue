@@ -1,6 +1,7 @@
 <template>
   <div class="goods">
     <!--菜单栏  -->
+    <!--{{menuCurrentIndex}}-->
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
         <li v-for="(item,index) of goods" @click="menuClick(index,$event)" :class="index==menuCurrentIndex?'menu-item-selected':'menu-item'">
@@ -44,6 +45,10 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+const ERR_OK = 0
+const eventHub = new Vue()
+// 组件
 import iconMap from '@/components/iconMap/iconMap'
 import cartcontrol from '@/components/cartcontrol/cartcontrol'
 
@@ -64,20 +69,74 @@ export default {
     // 初始化数据
     axios.get('static/data.json').then((res) => {
       this.goods = res.data.goods;
+      // Dom 结构加载结束
+      this.$nextTick(()=>{
+        this._initScroll();// 初始化scroll
+        this._calculateHeight();// 初始化高度列表
+      })
 
     })
   },
   methods:{
     menuClick(index,event){
-
+      // console.log(index)
+      if(!event._constructed){
+        return
+      }
+      //运用BScroll接口，滚动到相应位置
+      let foodList = this.$refs.foodsWrapper.querySelectorAll('.food-list-hook');
+      //获取对应元素的列表
+      let el = foodList[index];
+      //设置滚动时间
+      this.foodsScroll.scrollToElement(el, 300);
+      // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     },
     goDetail(food){
 
+    },
+    // 左右两侧需要滚动的元素初始化
+    _initScroll(){
+      this.meunScroll = new BScroll(this.$refs.menuWrapper,{
+        click:true
+      })
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper,{
+        click: true,
+        probeType: 3 //探针 实时获取y值
+      })
+      // 监听滚动事件
+      this.foodsScroll.on('scroll',(pos)=>{
+        // console.log(pos.y);
+        // console.log(Math.round(pos.y));
+        this.foodsScrollY = Math.abs(Math.round(pos.y))
+        // console.log(this.foodsScrollY)
+      })
+    },
+    // 计算高度
+    _calculateHeight(){
+      let foodList = this.$refs.foodsWrapper.querySelectorAll('.food-list-hook');
+      let height = 0; // 将第一个高度放入数组
+      this.listHeight.push(height);
+      for(let i=0,l = foodList.length;i<l;i++){
+        let item = foodList[i];
+        height += item.clientHeight;
+        this.listHeight.push(height)
+      }
     }
   },
   computed:{
+    // 计算左侧对应的y值
     menuCurrentIndex(){
-
+      for(var i=0,l=this.listHeight.length;i<l;i++){
+        // menuCurrentIndex 在topHeight 跟bottomHeight之间显示
+        let topHeight = this.listHeight[i];
+        let bottomHeight = this.listHeight[i+1];
+        // 最后一个没有bottomHeight
+        if(!bottomHeight || (this.foodsScrollY >= topHeight && this.foodsScrollY< bottomHeight)){
+          // console.log(i)
+          return i
+        }
+      }
+      return 0
     }
   },
   components:{iconMap,cartcontrol}
@@ -97,7 +156,7 @@ export default {
     background #f3f5f7
     margin-top 2px
     .menu-item-selected
-      background white
+      background #fff
       font-weight 700
       margin-top -1px
     .menu-item,.menu-item-selected
@@ -109,7 +168,7 @@ export default {
       padding 0 12px
       &:last-child:after
           content none
-    .menu-item:after 
+    .menu-item:after
       position absolute
       content ''
       left 12px
@@ -177,10 +236,15 @@ export default {
               .unit
                 font-size 10px
                 font-weight normal
-
-
-
-
+            .oldPrice
+              text-decoration line-through
+              color rgb(147,153,159)
+              padding-left 4px
+          .cartcontrol-wrapper
+            position absolute
+            right 0
+            bottom 12px
+            z-index 20
 
 </style>
 

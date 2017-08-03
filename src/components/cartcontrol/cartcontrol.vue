@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   props:['food'],
   data(){
@@ -28,11 +30,26 @@ export default {
     }
   },
   methods:{
+    // 减少购物车
     decreaseCart(){
-
+      if(!event._constructed || !this.food.count){
+        return
+      }
+      this.count--;
     },
-    addCart(){
-
+    // 增加购物车
+    addCart(event){
+      console.log(event.target);
+      // event_constructed  Better-scroll 派发这个事件，原生没有这个事件
+      if(!event._constructed){
+        return
+      }
+      if(!this.food.count){
+        Vue.set(this.food,'count',0)
+      }
+      this.food.count++;
+      //eventHub 组件之间进行通信
+      this.$root.eventHub.$emit('cart.add',event.target) // 触发事件
     }
   }
 }
@@ -49,7 +66,31 @@ export default {
       font-size 24px
       color rgb(0,160,220)
       transition all 0.4s linear
-    
+    &.fadeRotate-enter-active, &.fadeRotate-leave-active
+      transform translate3d(0,0,0) // 开启3d
+      .inner
+        display inline-block
+        transform rotate(0)
+    &.fadeRotate-enter, &.fadeRotate-leave-active
+      opacity 0
+      transform translate3d(24px,0,0)
+      .inner
+        transform rotate(180deg)
+  .cart-count
+    display inline-block
+    vertical-align top
+    font-size 10px
+    color rgb(147,153,159)
+    line-height 24px
+    text-align center
+    padding 6px 0
+  .cart-add
+    display inline-block
+    vertical-align top
+    font-size 24px
+    line-height 24px
+    color rgb(0,160,220)
+    padding 6px 0
 
 </style>
 

@@ -42,6 +42,7 @@
         </li>
       </ul>
     </div>
+    <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
   </div>
 </template>
 <script>
@@ -51,6 +52,8 @@ const eventHub = new Vue()
 // 组件
 import iconMap from '@/components/iconMap/iconMap'
 import cartcontrol from '@/components/cartcontrol/cartcontrol'
+import shopCart from '@/components/shopCart/shopCart'
+// import foodDetail from '@/components/foodDetail/foodDetail'
 
 import axios from 'axios'
 import BScroll from 'better-scroll' // 滚动
@@ -137,9 +140,12 @@ export default {
         }
       }
       return 0
+    },
+    selectFoods(){
+      
     }
   },
-  components:{iconMap,cartcontrol}
+  components:{iconMap,cartcontrol,shopCart}
 }
 </script>
 <style lang="stylus">

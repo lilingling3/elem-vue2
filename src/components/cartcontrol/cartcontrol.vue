@@ -35,7 +35,7 @@ export default {
       if(!event._constructed || !this.food.count){
         return
       }
-      this.count--;
+      this.food.count--;
     },
     // 增加购物车
     addCart(event){
@@ -48,8 +48,8 @@ export default {
         Vue.set(this.food,'count',0)
       }
       this.food.count++;
-      //eventHub 组件之间进行通信
-      this.$root.eventHub.$emit('cart.add',event.target) // 触发事件
+      //eventHub 派发自定义事件cart.add，传递信息event.target
+      this.$root.eventHub.$emit('cart.add',event.target) // 触发事件  传输点击的目标元素
     }
   }
 }

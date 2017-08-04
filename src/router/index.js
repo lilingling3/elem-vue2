@@ -9,13 +9,21 @@ import seller from '@/components/seller/seller'
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
+  routes: [
+     {
+      path: '/',
+      redirect: '/goods',// 重定向
+      component: goods
+    },
+    {
     path: '/goods',
     component: goods
-  }, {
+   },
+    {
     path: '/ratings',
     component: ratings
-  }, {
+   },
+  {
     path: '/seller',
     component: seller
   }],

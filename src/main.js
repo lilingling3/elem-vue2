@@ -17,6 +17,9 @@ new Vue({
   el: '#app',
   router,
   store,
+  data:{
+    eventHub: new Vue() // main.js 中添加 否则全局使用 undefined
+  },
   template: '<App/>',
   components: { App }
 })

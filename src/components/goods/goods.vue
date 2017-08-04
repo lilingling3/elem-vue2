@@ -142,7 +142,16 @@ export default {
       return 0
     },
     selectFoods(){
-      
+      let foods = []
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          // 默认 count 是0 ，当增加的时候 也就是选择的时候添加
+          if(food.count){
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
   },
   components:{iconMap,cartcontrol,shopCart}

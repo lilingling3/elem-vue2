@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-   
+
       <div class="content-wrapper">
         <!--图标  -->
         <div class="avatar">
@@ -104,7 +104,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import  '../../common/stylus/mixin'
 
 .header
@@ -202,7 +202,7 @@ export default {
       font-size 10px
       vertical-align middle
       margin 0 4px
-    .icon-keyboard_arrow_right  
+    .icon-keyboard_arrow_right
       position absolute
       font-size 10px
       right 12px
@@ -217,7 +217,7 @@ export default {
     z-index -1
   .detail
     position fixed
-    top 0 
+    top 0
     left 0
     z-index 100
     width 100%
@@ -287,7 +287,7 @@ export default {
           font-size 12px
           font-weight 200
           color rgb(255,255,255)
-          line-height 24px   
+          line-height 24px
     .detail-close
       position relative
       width 32px
@@ -297,7 +297,7 @@ export default {
       font-size 32px
       color rgba(255,255,255,0.5)
     &.fade-enter-active, &.fade-leave-active{
-      transition: opacity .5s 
+      transition: opacity .5s
     }
     &.fade-enter, &.fade-leave-active {
         opacity: 0

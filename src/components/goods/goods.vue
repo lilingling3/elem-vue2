@@ -42,7 +42,8 @@
         </li>
       </ul>
     </div>
-    <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
+  <shopCart :deliveryPrice="seller.deliveryPrice" :minPrice = "seller.minPrice" :selectFoods="selectFoods"></shopCart>
+    <foodDetail :food='selectedFood' v-if="selectedFood" ref="myFood"></foodDetail>
   </div>
 </template>
 <script>
@@ -53,7 +54,7 @@ const eventHub = new Vue()
 import iconMap from '@/components/iconMap/iconMap'
 import cartcontrol from '@/components/cartcontrol/cartcontrol'
 import shopCart from '@/components/shopCart/shopCart'
-// import foodDetail from '@/components/foodDetail/foodDetail'
+import foodDetail from '@/components/foodDetail/foodDetail'
 
 import axios from 'axios'
 import BScroll from 'better-scroll' // 滚动
@@ -95,7 +96,10 @@ export default {
       // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     },
     goDetail(food){
-
+      this.selectedFood = food;
+      this.$nextTick(() => {
+        this.$refs.myFood.showToggle()
+      })
     },
     // 左右两侧需要滚动的元素初始化
     _initScroll(){
@@ -154,10 +158,10 @@ export default {
       return foods
     }
   },
-  components:{iconMap,cartcontrol,shopCart}
+  components:{iconMap,cartcontrol,shopCart,foodDetail}
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import '../../common/stylus/mixin'
 .goods
   display flex

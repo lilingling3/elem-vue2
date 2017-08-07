@@ -236,7 +236,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .shopCart
   position fixed
   left 0
@@ -311,7 +311,7 @@ export default {
         font-size 10px
         color rgba(255,255,255,0.4)
         font-weight 700
-        line-height 14px
+        line-height 24px
     .content-right
       flex 0 0 105px
       font-size 12px

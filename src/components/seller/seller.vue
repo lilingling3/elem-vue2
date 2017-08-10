@@ -87,6 +87,7 @@ export default {
   components:{star,iconMap},
   created(){
     this._init()
+    console.log(this.$route.params)
   },
   methods:{
     _init(){

@@ -151,7 +151,7 @@ export default {
         if(!ball.show){
           ball.show = true;
           ball.el = el;
-          this.dropBalls.push(ball)
+          this.dropBalls.push(ball)  // 保存执行动画的ball
           return
         }
       }
@@ -187,7 +187,10 @@ export default {
     hideBackdrop(){
       this.listShow = false
     },
+    // 开始位置el
     beforeEnter(el){
+      // const ball = this.dropBalls.shift() 
+      // 这个ball 就是 ball.el.getBoundingClientRect();
       console.log(el)
       let count = this.balls.length;
       while(count--){
@@ -196,14 +199,15 @@ export default {
           let rect = ball.el.getBoundingClientRect();
           // console.log(rect.left)
           // console.log(rect.top)
-          let x = rect.left - 32;
-          let y = -(window.innerHeight - rect.top - 22);
+          let x = rect.left - 32;  // 32是目标的left值
+          let y = -(window.innerHeight - rect.top - 22); // 22 是目标值bottom 值  结果是负值
           // console.log(x)
           // console.log(y)
+          // 控制y
           el.style.display = ''
           el.style.webkitTransform = `translate3d(0,${y}px,0)`;
           el.style.transform =  `translate3d(0,${y}px,0)`;
-
+          // 控制x
           let inner = el.querySelector('.inner-hook');
           inner.style.webkitTransform = `translate3d(${x}px,0,0)`
           inner.style.transform = `translate3d(${x}px,0,0)`
@@ -211,9 +215,12 @@ export default {
       }
 
     },
+    // 结束位置el
     enter(el){
-      el.offsetHeight // 触发浏览器重绘，offsetWidth、offsetTop等方法都可以触发
-      // 能解决每次出现白底效果
+      var offsetHeight = el.offsetHeight // 强制触发浏览器重绘，offsetWidth、offsetTop等方法都可以触发
+      // 能解决每次出现白底效果  
+      // offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight、getComputedStyle() 
+      // 异步
       this.$nextTick(() => {
         el.style.webkitTransform = 'translate3d(0,0,0)'
         el.style.transform = 'translate3d(0,0,0)'
@@ -223,6 +230,7 @@ export default {
         inner.style.transform = 'translate3d(0,0,0)'
       })
     },
+    // 隐藏el
     afterEnter(el){
       let ball = this.dropBalls.shift() // 删除第一个并返回第一个
       if(ball){

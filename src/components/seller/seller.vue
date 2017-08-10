@@ -20,19 +20,19 @@
           <div class="block">
             <h2>起送价</h2>
             <div class="content">
-              <span class="num">{{seller.minPrice}}</span>
+              <span class="num">{{seller.minPrice}}</span>元
             </div>
           </div>
           <div class="block">
             <h2>商家配送</h2>
             <div class="content">
-              <span class="num">{{seller.deliveryPrice}}</span>
+              <span class="num">{{seller.deliveryPrice}}</span>元
             </div>
           </div>
           <div class="block">
             <h2>平均配送时间</h2>
             <div class="content">
-              <span class="num">{{seller.deliveryTime}}</span>
+              <span class="num">{{seller.deliveryTime}}</span>元
             </div>
           </div>
         </div>
@@ -184,7 +184,77 @@ export default {
           border-right 1px solid rgba(7,17,27,0.1)
           &:last-child
             border none
-          
+          h2
+            font-size 10px
+            color rgb(147,153,159)
+            line-height 10px
+            margin-bottom 4px
+          .content
+            font-size 10px
+            color rgb(7,17,27)
+            line-height 24px
+            font-weight 200
+            .num
+              position relative
+              top 2px
+              font-size 24px
+    .activities
+      padding-top 18px
+      .bulletin
+        margin 0 18px
+        border-bottom 1px solid rgba(7,17,27,0.1)
+        h1
+          font-size 14px
+          line-height 14px
+          color #07111b
+        .content
+          padding 8px 12px 16px 12px
+          font-size 12px
+          font-weight 200
+          color rgb(240,20,20)
+          line-height 24px
+    .supports
+      margin 0 18px
+      .item
+        padding 16px
+        border-bottom 1px solid rgba(7,17,27,0.1)
+        font-size 0   // 有图片使用这种方式 图片有空隙的解决方法
+        .iconMap
+          width 16px
+          height 16px
+          vertical-align top
+          margin-right 6px
+        .text
+          font-size 12px
+          font-weight 200
+          color rgb(7,17,27)
+          line-height 16px
+    .seller-imgs
+      margin 18px
+      white-space nowrap
+      overflow hidden
+      h1
+        font-size 14px
+        line-height 14px
+        margin-bottom 12px
+      img
+        margin-right 6px
+    .seller-info
+      h1
+        margin 0 18px
+        padding 18px 0 12px 0
+        border-bottom 1px solid rgba(7,17,27,0.1)
+      .info-list
+        .info
+          font-size 12px
+          font-weight 200
+          color rgb(7,17,27)
+          line-height 16px
+          padding 16px 12px
+          border-bottom 1px solid rgba(7,17,27,0.1)
+          &:last-child
+            border none
+
 </style>
 
 
